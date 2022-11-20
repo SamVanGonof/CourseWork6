@@ -6,19 +6,12 @@ User = get_user_model()
 
 
 class UserRegistrationSerializer(BaseUserRegistrationSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
-
-    def create(self, validated_data):
-        user = User.objects.create(**validated_data)
-        user.set_password(user.password)
-        user.save()
-
-        return user
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['role'] = serializers.CharField(max_length=5, write_only=True, required=False)
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'image']

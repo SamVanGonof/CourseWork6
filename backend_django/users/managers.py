@@ -9,7 +9,7 @@ class UserRoles(models.TextChoices):
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, first_name, last_name, phone, roles=UserRoles.USER, password=None):
+    def create_user(self, email, first_name, last_name, phone, role=UserRoles.USER, password=None):
         if not email:
             raise ValueError('Поле email обязательно к заполнению')
         user = self.model(
@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
             last_name=last_name,
             phone=phone,
             password=password,
-            role=roles
+            role=role
         )
 
         user.is_active = True

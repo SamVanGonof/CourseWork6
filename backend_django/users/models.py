@@ -12,10 +12,11 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, validators=[MinLengthValidator(1)], unique=True, verbose_name='Электронный адрес')
     role = models.CharField(max_length=6, choices=UserRoles.choices, default=UserRoles.USER, verbose_name='Роль')
     image = models.ImageField(verbose_name='Аватар', null=True, blank=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'role']
 
     objects = UserManager()
 
